@@ -15,12 +15,10 @@ function CreateItemPanel() {
     director: '',
     releaseYear: '',
     runningTime: '',
-    
   };
 
   return (
-    <div 
-    >
+    <>
       <Formik
         initialValues={initialValues}
         validationSchema={Yup.object({
@@ -69,7 +67,7 @@ function CreateItemPanel() {
           )
         }}
       </Formik>
-    </div>
+    </>
   );
 }
 
