@@ -16,15 +16,15 @@ function Content() {
   return (
     <div className={styles.root}>
       <Switch>
-        <Route exact path="/">
-          <Redirect to="/itemlist" />
+        <Route exact path='/'>
+          <Redirect to='/itemlist' />
         </Route>
         <Route path='/itemlist' exact >
           <SearchPanel />
           <CreateItemPanel />
           <ItemList items={items} />
         </Route>
-        <Route exact path='/itemlist/:id(\d+)' render={({ match, location, history }) => {
+        <Route exact path='/itemlist/:id' render={({ match }) => {
             const { id } = match.params;
             return(
               <ItemDetail item={items.find((item) => {
