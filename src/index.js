@@ -1,6 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
+import { BrowserRouter as Router} from 'react-router-dom';
+import App from 'components/App';
 
-const App = () => <p>This is WebPack React App</p>;
+import store from './store';
+ReactDOM.render(
+<Provider store={store}>
+  <Router>
+    <App />
+  </Router>
+</Provider>,
+document.getElementById('root'));
 
-ReactDOM.render(<App/>, document.getElementById('root'));
+

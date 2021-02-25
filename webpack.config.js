@@ -1,6 +1,16 @@
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+
+const path = require('path');
 
 module.exports = {
   mode: "development",
+
+  output: {
+    path: path.resolve(__dirname, 'dist'),
+    filename: 'main.js',
+    publicPath: '/',
+  },
 
   module: {
     rules: [
@@ -8,16 +18,11 @@ module.exports = {
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        use: [
-          {
-            loader: 'babel-loader'
-          }
-        ]
+        loader: 'babel-loader'
       },
 
-      // Loading images
       {
-        test: /\.(png|jpg|jpeg|gif|ico)$/,
+        test: /\.(png|jpg|jpeg|gif|ico|svg)$/,
         use: [
           {
             loader: 'file-loader',
@@ -29,7 +34,6 @@ module.exports = {
         ]
       },
 
-      // Loading fonts
       {
         test: /\.(ttf|otf|eot|woff|woff2)$/,
         use: [
@@ -45,12 +49,32 @@ module.exports = {
 
       {
         test: /\.(css)$/,
-        use: [
-          { loader: 'style-loader' },
-          { loader: 'css-loader' }
-        ]
-      }
-
+        use: [ MiniCssExtractPlugin.loader, 'css-loader']
+      },
     ]
-  }
+  },
+
+  plugins: [
+    new HtmlWebpackPlugin({
+      title: 'Hello World',
+      template: 'public/index.html'
+    }),
+    new MiniCssExtractPlugin({
+      filename: 'main-[hash:8].css'
+    })
+  ],
+
+  devServer: {
+    open: true,
+    historyApiFallback: true,
+  },
+
+  resolve: {
+    alias: {
+      components: path.resolve(__dirname, 'src/components/'),
+      actions: path.resolve(__dirname, 'src/actions/'),
+      constants: path.resolve(__dirname, 'src/constants/'),
+      reducers: path.resolve(__dirname, 'src/reducers/'),
+    },
+  },
 };

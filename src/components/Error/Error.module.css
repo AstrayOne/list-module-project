@@ -1,0 +1,32 @@
+.error {
+  vertical-align: middle;
+  height: 30px;
+  position: relative;
+  padding-left: 35px;
+  color: red;
+  line-height: 35px;
+  font: 12px 'OpenSans-Regular', sans-serif;
+}
+
+.errorText {
+  height: 30px;
+  margin: 0px;
+  vertical-align: middle;
+  line-height: 30px;
+}
+
+.error::after {
+  content: '';
+  position: absolute;
+  top: 0px;
+  bottom: 0px;
+  left: 7px;
+  right:0px;
+  width: 16px;
+  height: 16px;
+  margin-top: auto;
+  margin-bottom: auto;
+  background-image: url('../../img/error.svg');
+  background-size: 16px;
+  background-repeat: no-repeat;
+}
