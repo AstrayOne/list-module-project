@@ -6,7 +6,7 @@ import styles from 'components/CreateItemPanel/CreateItemPanel.module.css';
 import { addItem } from 'actions';
 import Input from 'components/Input';
 
-function CreateItemPanel() {
+const CreateItemPanel = () => {
 
   const dispatch = useDispatch();
 
@@ -33,8 +33,9 @@ function CreateItemPanel() {
         .max(3, 'Wrong runningTime'),
       })}
 
-      onSubmit={(values) => {
-        dispatch(addItem(values))
+      onSubmit={(values, onSubmitProps) => {
+        dispatch(addItem(values));
+        onSubmitProps.resetForm();
       }}
 
       >
@@ -44,19 +45,23 @@ function CreateItemPanel() {
               <Input 
                 name='title' 
                 value={formProps.values.title}
-                className='title'/>
+                className='title'
+                placeholder='Title'/>
               <Input 
                 name='director' 
                 value={formProps.values.director}
-                className='director'/>
+                className='director'
+                placeholder='Director'/>
               <Input 
                 name='releaseYear' 
                 value={formProps.values.releaseYear}
-                className='releaseYear'/>
+                className='releaseYear'
+                placeholder='Release year'/>
               <Input 
                 name='runningTime' 
                 value={formProps.values.runningTime}
-                className="runningTime"/>
+                className='runningTime'
+                placeholder='Running time'/>
               <button
                 className={styles.addButton}
                 type="submit"

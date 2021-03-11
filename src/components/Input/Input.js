@@ -6,7 +6,7 @@ import Error from 'components/Error';
 import styles from 'components/Input/Input.module.css';
 
 const Input = (props) => {
-  const { name, value, className, ...rest } = props;
+  const { name, value, className, placeholder, ...rest } = props;
 
   const cn = classNames.bind(styles);
 
@@ -24,7 +24,7 @@ const Input = (props) => {
         id={name} 
         name={name} 
         {...rest} 
-        placeholder={name}
+        placeholder={placeholder}
       />
       <ErrorMessage name={name} component={Error} />
     </div>

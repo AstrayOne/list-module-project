@@ -1,36 +1,38 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
+import queryString from 'query-string';
 
 import styles from 'components/SearchPanel/SearchPanel.module.css';
-import { keys } from 'constants';
 
 function SearchPanel() {
 
   const history = useHistory();
-  const [search, setSearch] = useState('');
+  const parsed = queryString.parse(history.location.search);
+
+  const [search, setSearch] = useState(parsed.search);
+  const [isSearchUsed, setIsSearchUsed] = useState(false);
 
   const changeSearch = (event) => {
+
+    if(!isSearchUsed) {
+      setIsSearchUsed(true);
+    }
     setSearch(event.target.value);
   }
 
+  useEffect(() => {
+    if (isSearchUsed) {
+      startSearch();
+    }
+  }, [search]);
+
   const startSearch = () => {
     history.push({
-      path:`/itemlist`,
-      search:`?search=${search}`
+      path: `/itemlist`,
+      search: `?search=${search}`
     });
   }
 
-  const handleKeyEnter = (event) => {
-    if (event.keyCode === keys.keyEnter && search) {
-      startSearch();
-    }
-  };
-
-  const handleOnButtonSearch = () => {
-    if (search) {
-      startSearch();
-    }
-  }
   return (
     <div className={styles.root}>
       <input
@@ -39,12 +41,10 @@ function SearchPanel() {
         name='search'
         value={search}
         onChange={changeSearch}
-        onKeyDown={handleKeyEnter}
         placeholder='Search'
       />
-      <div 
-        className={styles.searchButton}
-        onClick={handleOnButtonSearch}></div>
+      <div className={styles.searchButton}>
+      </div>
     </div>
   )
 };

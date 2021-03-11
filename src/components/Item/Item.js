@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import classNames from 'classnames/bind';
@@ -13,6 +13,8 @@ import Input from 'components/Input';
 
 function Item(props) {
   const dispatch = useDispatch();
+  const history = useHistory();
+  const cn = classNames.bind(styles);
 
   const { id , title, director, releaseYear, runningTime } = props.item;
 
@@ -25,11 +27,9 @@ function Item(props) {
 
   const [isEdited, setIsEdited] = useState(false);
   const [iconsVisible, setIconsVisible] = useState(false);
- 
-  const history = useHistory();
-  
-  const cn = classNames.bind(styles);
 
+  const itemRef = useRef(null);
+ 
   const buttonEditClassNames = cn('editButton', {
     buttonVisible: iconsVisible,
     buttonNoVisible: !iconsVisible,
@@ -42,12 +42,12 @@ function Item(props) {
 
   const handleOnClick = () => {
     history.push(`/itemlist/${id}`);
-    console.log(history);
   }
 
   const deleteItem = () => {
-    console.log(props.item.id);
-    dispatch(deleteMovie(props.item.id));
+    if (window.confirm('Delete Movie?')) {
+      dispatch(deleteMovie(props.item.id));
+    }
   }
 
   const editItem = () => {
@@ -57,34 +57,33 @@ function Item(props) {
   const handleMouseOver = () => {
     setIconsVisible(true);
   };
-  
+
   const handleMouseOut = () => {
     setIconsVisible(false);
   };
 
-  if (isEdited) {
-    return (
-      <Formik
-        initialValues={initialValues}
-
-        validationSchema={Yup.object({
-        title: Yup.string().required('Required'),
-        director: Yup.string().required('Required'),
-        releaseYear: Yup.string()
-          .required('Required')
-          .min(4, 'Wrong year')
-          .max(4, 'Wrong year'),
-        runningTime: Yup.string()
+  const editItemForm = 
+    <Formik
+      initialValues={initialValues}
+      validationSchema={Yup.object({
+      title: Yup.string().required('Required'),
+      director: Yup.string().required('Required'),
+      releaseYear: Yup.string()
+        .required('Required')
+        .min(4, 'Wrong year')
+        .max(4, 'Wrong year'),
+      runningTime: Yup.string()
         .required('Required')
         .max(3, 'Wrong runningTime'),
-    })}
+      })}
 
-    onSubmit={(values) => {
-      dispatch(editMovie({...values, id: id}));
-      setIsEdited(false);
-    }}
+      onSubmit={(values) => {
+        dispatch(editMovie({...values, id: id}));
+        setIsEdited(false);
+        setIconsVisible(false);
+      }}
 
-    >
+      >
       {formProps => {
         return(
           <form className={styles.form} onSubmit={formProps.handleSubmit}>
@@ -113,25 +112,27 @@ function Item(props) {
           </form>
         )
       }}
-    </Formik>
-    );
-  }
+      </Formik>;
 
-  return (
-    <div className={styles.root}
-      onMouseEnter={handleMouseOver}
-      onMouseLeave={handleMouseOut}>
-      
-      <a  className={styles.title}
+  const item = 
+    <div className={styles.item}>
+      <a className={styles.title}
         onClick={handleOnClick}>{`${title}, ${releaseYear}`}</a>
       <p className={styles.director}>{director}</p>
       <p className={styles.runningTime}>{`${runningTime} min`}</p>
       <div className={buttonEditClassNames} onClick={editItem}></div>
       <div className={buttonDeleteClassNames} onClick={deleteItem}></div>
     </div>
-  )
-}
 
+  return(
+    <div className={styles.root} ref={itemRef}
+      onMouseOver={handleMouseOver}
+      onMouseOut={handleMouseOut}>
+      {
+        isEdited ? editItemForm : item
+      }
+    </div>)
+}
 
 Item.defaultProps = {
   item: {},

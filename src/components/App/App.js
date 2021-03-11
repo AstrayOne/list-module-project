@@ -3,7 +3,7 @@ import React from 'react';
 import Content from 'components/Content';
 import styles from './App.module.css';
 
-function App() {
+const App = () => {
   return (
     <div className={styles.root}>
       <Content />

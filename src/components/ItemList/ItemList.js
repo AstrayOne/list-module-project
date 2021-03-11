@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import styles from 'components/ItemList/ItemList.module.css';
 import Item from 'components/Item';
 import { useLocation } from 'react-router-dom';
@@ -13,9 +13,7 @@ function ItemList(props) {
 
   if (parsed.search) {
     filteredItems = items.filter((item) => item.title.includes(parsed.search) ||
-    item.director.includes(parsed.search) ||
-    item.releaseYear.includes(parsed.search) ||
-    item.runningTime.includes(parsed.search)
+      item.director.includes(parsed.search) || item.releaseYear.includes(parsed.search) 
     )
   }
 

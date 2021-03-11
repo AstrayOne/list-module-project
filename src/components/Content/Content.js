@@ -6,20 +6,22 @@ import SearchPanel from 'components/SearchPanel';
 
 import CreateItemPanel from 'components/CreateItemPanel';
 import ItemDetail from 'components/ItemDetail';
+import Header from 'components/Header';
 
 import styles from 'components/Content/Content.module.css';
 
-function Content() {
+const Content = () => {
 
   const items = useSelector((state) => state.movieList);
 
   return (
     <div className={styles.root}>
+      <Header />
+      <Route exact path='/'>
+        <Redirect to='/itemlist' />
+      </Route>
       <Switch>
-        <Route exact path='/'>
-          <Redirect to='/itemlist' />
-        </Route>
-        <Route path='/itemlist' exact >
+        <Route path='/itemlist' exact>
           <SearchPanel />
           <CreateItemPanel />
           <ItemList items={items} />
