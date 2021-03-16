@@ -1,19 +1,16 @@
 import React, { useState, useRef } from 'react';
 import { useDispatch } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import classNames from 'classnames/bind';
-import { Formik } from 'formik';
-import PropTypes from 'prop-types';
-import * as Yup from 'yup';
 
-import styles from 'components/Item/Item.module.css';
+import PropTypes from 'prop-types';
+import styles from './Item.module.css';
 
 import { deleteMovie, editMovie } from 'actions';
-import Input from 'components/Input';
+import InputPanel from 'components/InputPanel';
 
-function Item(props) {
+const Item = (props) => {
   const dispatch = useDispatch();
-  const history = useHistory();
   const cn = classNames.bind(styles);
 
   const { id , title, director, releaseYear, runningTime } = props.item;
@@ -40,10 +37,6 @@ function Item(props) {
     buttonNoVisible: !iconsVisible,
   });
 
-  const handleOnClick = () => {
-    history.push(`/itemlist/${id}`);
-  }
-
   const deleteItem = () => {
     if (window.confirm('Delete Movie?')) {
       dispatch(deleteMovie(props.item.id));
@@ -62,62 +55,22 @@ function Item(props) {
     setIconsVisible(false);
   };
 
+  const confirmChangesHandler = (values) => {
+    dispatch(editMovie({...values, id: id}));
+    setIsEdited(false);
+    setIconsVisible(false);
+  }
+
   const editItemForm = 
-    <Formik
+    <InputPanel 
       initialValues={initialValues}
-      validationSchema={Yup.object({
-      title: Yup.string().required('Required'),
-      director: Yup.string().required('Required'),
-      releaseYear: Yup.string()
-        .required('Required')
-        .min(4, 'Wrong year')
-        .max(4, 'Wrong year'),
-      runningTime: Yup.string()
-        .required('Required')
-        .max(3, 'Wrong runningTime'),
-      })}
-
-      onSubmit={(values) => {
-        dispatch(editMovie({...values, id: id}));
-        setIsEdited(false);
-        setIconsVisible(false);
-      }}
-
-      >
-      {formProps => {
-        return(
-          <form className={styles.form} onSubmit={formProps.handleSubmit}>
-            <Input 
-              name='title' 
-              value={formProps.values.title}
-              className='title'/>
-            <Input 
-              name='director' 
-              value={formProps.values.director}
-              className='director'/>
-            <Input 
-              name='releaseYear' 
-              value={formProps.values.releaseYear}
-              className='releaseYear'/>
-            <Input 
-              name='runningTime' 
-              value={formProps.values.runningTime}
-              className="runningTime"/>
-            <button
-              className={styles.confirmButton}
-              type="submit"
-            >
-              Confirm Changes
-            </button>
-          </form>
-        )
-      }}
-      </Formik>;
+      onSubmitHandler={confirmChangesHandler}
+      buttonName='Confirm changes' 
+    />
 
   const item = 
     <div className={styles.item}>
-      <a className={styles.title}
-        onClick={handleOnClick}>{`${title}, ${releaseYear}`}</a>
+      <Link className={styles.title} to={`/itemlist/${id}`}>{`${title}, ${releaseYear}`}</Link>
       <p className={styles.director}>{director}</p>
       <p className={styles.runningTime}>{`${runningTime} min`}</p>
       <div className={buttonEditClassNames} onClick={editItem}></div>

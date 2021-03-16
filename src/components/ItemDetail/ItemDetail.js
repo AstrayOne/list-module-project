@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from 'components/ItemDetail/ItemDetail.module.css';
+import styles from './ItemDetail.module.css';
 import PropTypes from 'prop-types';
 
 function ItemDetail(props) {

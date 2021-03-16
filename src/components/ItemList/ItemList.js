@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from 'components/ItemList/ItemList.module.css';
+import styles from './ItemList.module.css';
 import Item from 'components/Item';
 import { useLocation } from 'react-router-dom';
 import queryString from 'query-string';

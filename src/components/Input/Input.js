@@ -1,30 +1,20 @@
 import React from 'react';
 import { Field, ErrorMessage } from 'formik';
 import PropTypes from 'prop-types';
-import classNames from 'classnames/bind';
 import Error from 'components/Error';
-import styles from 'components/Input/Input.module.css';
+import styles from './Input.module.css';
 
 const Input = (props) => {
-  const { name, value, className, placeholder, ...rest } = props;
-
-  const cn = classNames.bind(styles);
-
-  const inputClassNames = cn('input', {
-    title: className === 'title',
-    director: className === 'director',
-    releaseYear: className === 'releaseYear',
-    runningTime: className === 'runningTime',
-  });
+  const { name, value, placeholder, ...rest } = props;
 
   return (
-    <div >
+    <div className={styles.inputContainer}>
       <Field 
-        className={inputClassNames} 
+        className={styles.input} 
         id={name} 
         name={name} 
-        {...rest} 
         placeholder={placeholder}
+        {...rest} 
       />
       <ErrorMessage name={name} component={Error} />
     </div>
@@ -34,13 +24,13 @@ const Input = (props) => {
 Input.defaultProps = {
   name: '',
   value: '',
-  className: '',
+  placeholder: ''
 };
 
 Input.propTypes = {
   name: PropTypes.string,
   value: PropTypes.string,
-  className: PropTypes.string,
+  placeholder: PropTypes.string
 };
 
 export default Input;

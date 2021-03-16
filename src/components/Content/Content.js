@@ -8,7 +8,7 @@ import CreateItemPanel from 'components/CreateItemPanel';
 import ItemDetail from 'components/ItemDetail';
 import Header from 'components/Header';
 
-import styles from 'components/Content/Content.module.css';
+import styles from './Content.module.css';
 
 const Content = () => {
 

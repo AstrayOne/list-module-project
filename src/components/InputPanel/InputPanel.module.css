@@ -20,11 +20,9 @@
 }
 
 .form {
-  display: grid;
-  grid-template-columns: 270px 270px;
-  grid-template-rows: 70px 70px 40px;
-  grid-column-gap: 20px;
-  grid-row-gap: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
   margin-top: 10px;
   margin-bottom: 10px;
   padding-top: 20px;

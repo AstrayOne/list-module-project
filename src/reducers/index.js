@@ -3,17 +3,9 @@ const initialState = {
   movieList: [],
 };
 
-function Movie(id, title, director, releaseYear, runningTime) {
-  this.id = id;
-  this.title = title;
-  this.director = director;
-  this.releaseYear = releaseYear;
-  this.runningTime = runningTime;
-};
-
-const addItem = (state, item) => {
+const addMovie = (state, movie) => {
   const newLastId = state.lastId + 1;
-  const newMovie = new Movie(newLastId, item.title, item.director, item.releaseYear, item.runningTime);
+  const newMovie = {id: newLastId, ...movie};
   const newList = [...state.movieList, newMovie];
 
   const newState = {
@@ -24,8 +16,8 @@ const addItem = (state, item) => {
   return newState;
 }
 
-const deleteItem = (state, itemId) => {
-  const index = state.movieList.findIndex(({ id }) => id === itemId);
+const deleteMovie = (state, movieId) => {
+  const index = state.movieList.findIndex(({ id }) => id === movieId);
 
   const newlist = [
     ...state.movieList.slice(0, index),
@@ -40,13 +32,12 @@ const deleteItem = (state, itemId) => {
   return newState;
 }
 
-const editItem = (state, item) => {
-  const index = state.movieList.findIndex(({ id }) => id === item.id);
+const editMovie = (state, movie) => {
+  const index = state.movieList.findIndex(({ id }) => id === movie.id);
 
-  const newItem = new Movie(item.id, item.title, item.director, item.releaseYear, item.runningTime);
   const newlist = [
     ...state.movieList.slice(0, index),
-    newItem,
+    movie,
     ...state.movieList.slice(index + 1)
   ];
   
@@ -61,14 +52,14 @@ const editItem = (state, item) => {
 const reducer = (state = initialState, action) => {
   switch (action.type) {
 
-    case 'ADD_ITEM':
-      return addItem(state, action.item);
+    case 'ADD_MOVIE':
+      return addMovie(state, action.movie);
 
-    case 'DELETE_ITEM':
-      return deleteItem(state, action.itemId);
+    case 'DELETE_MOVIE':
+      return deleteMovie(state, action.movieId);
 
-    case 'EDIT_ITEM':
-      return editItem(state, action.item);
+    case 'EDIT_MOVIE':
+      return editMovie(state, action.movie);
 
     default:
       return state;

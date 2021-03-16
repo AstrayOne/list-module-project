@@ -1,5 +1,4 @@
 .error {
-  vertical-align: middle;
   height: 30px;
   position: relative;
   padding-left: 35px;
@@ -11,7 +10,6 @@
 .errorText {
   height: 30px;
   margin: 0px;
-  vertical-align: middle;
   line-height: 30px;
 }
 

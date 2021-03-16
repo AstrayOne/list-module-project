@@ -1,21 +1,21 @@
-export const addItem = (item) => {
+export const addMovie = (movie) => {
   return {
-    type: "ADD_ITEM",
-    item,
+    type: 'ADD_MOVIE',
+    movie,
   };
 };
 
-export const deleteMovie = (itemId) => {
+export const deleteMovie = (movieId) => {
   return {
-    type: "DELETE_ITEM",
-    itemId,
+    type: 'DELETE_MOVIE',
+    movieId,
   };
 };
 
 
-export const editMovie = (item) => {
+export const editMovie = (movie) => {
   return {
-    type: "EDIT_ITEM",
-    item,
+    type: 'EDIT_MOVIE',
+    movie,
   };
 };
