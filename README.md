@@ -1,3 +1,12 @@
-Учебное приложение для отработки базовых навыков работы с React, Redux, React Router, Formik.
+Training application to larn how to work with routing in react.
 
-Само приложение https://list-module-json-server.web.app
+App -  https://list-module-json-server.web.app
+
+#Stack
+
+* React 
+* React Redux
+* Formik
+* React Router
+* Webpack
+
