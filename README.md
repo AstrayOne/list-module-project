@@ -5,7 +5,7 @@ App -  https://list-module-json-server.web.app
 # Stack
 
 * React 
-* React Redux
+* Redux
 * Formik
 * React Router
 * Webpack
