@@ -1,4 +1,4 @@
-Training application to larn how to work with HTTP requests and Redux Saga using [JSON Server]:https://github.com/typicode/json-server as API.
+Training application to larn how to work with HTTP requests and Redux Saga using [JSON Server](https://github.com/typicode/json-server) as API.
 
 # Stack
 
