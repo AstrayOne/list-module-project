@@ -1,6 +1,4 @@
-Training application to larn how to work with routing in react.
-
-App -  https://list-module-json-server.web.app
+Training application to larn how to work with HTTP requests and Redux Saga using [JSON Server]:https://github.com/typicode/json-server as API.
 
 # Stack
 
@@ -8,5 +6,6 @@ App -  https://list-module-json-server.web.app
 * Redux
 * Formik
 * React Router
+* Redux Saga
+* Axios
 * Webpack
-
