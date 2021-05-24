@@ -1,4 +1,6 @@
-Training application to learn how to work with HTTP requests and Redux Saga using [JSON Server](https://github.com/typicode/json-server) as API.
+Training application to learn how to work with routing in React.
+
+App - https://list-module-project.web.app/
 
 # Stack
 
@@ -6,6 +8,4 @@ Training application to learn how to work with HTTP requests and Redux Saga usin
 * Redux
 * Formik
 * React Router
-* Redux Saga
-* Axios
 * Webpack
