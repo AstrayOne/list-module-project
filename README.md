@@ -11,4 +11,4 @@ App - https://list-module-project.web.app/
 * Webpack
 
 # Commands
-To start app: npm start
+To start app: ```npm start```
