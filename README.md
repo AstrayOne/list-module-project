@@ -9,3 +9,6 @@ App - https://list-module-project.web.app/
 * Formik
 * React Router
 * Webpack
+
+# Commands
+To start app: npm start
